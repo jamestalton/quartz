@@ -10,7 +10,7 @@ env:
 jobs:
   build:
     name: Build
-    
+
     runs-on: ubuntu-latest
 
     permissions:
@@ -43,11 +43,17 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}      
-          
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}.{{minor}}.{{patch}}
+                      
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@v6
         with:
+          platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
