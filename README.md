@@ -5,7 +5,8 @@ Generates a docker image of [Quartz](https://quartz.jzhao.xyz/) and publishes th
 ## Usage
 
 Quartz can now be run as a docker image, mounting the `content` and `public` folders for the input and output.
-It can be configures by mounting a `quartz.config.ts`.
+
+It can be configured by mounting a `quartz.config.ts`.
 
 ```
 podman run --rm -it \
