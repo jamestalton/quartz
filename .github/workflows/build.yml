@@ -1,16 +1,24 @@
+name: Build
+
 on:
   workflow_dispatch:
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}    
+
 jobs:
   build:
+    name: Build
+    
     runs-on: ubuntu-latest
+
     permissions:
       contents: read
       packages: write
       attestations: write
       id-token: write
+
     steps:
       - name: Checkout quartz
         uses: actions/checkout@v4
@@ -40,7 +48,7 @@ jobs:
         id: push
         uses: docker/build-push-action@v6
         with:
-          context: ./quartz
+          context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
